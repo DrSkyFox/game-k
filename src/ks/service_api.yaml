@@ -1,0 +1,60 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: wallet-api-test
+  namespace: default
+  uid: 571c678c-9c5f-4574-91ea-aa64d1f89c79
+  resourceVersion: '14726601'
+  creationTimestamp: '2021-10-14T12:18:26Z'
+  labels:
+    k8s-app: wallet-api-test
+  managedFields:
+    - manager: kubectl-expose
+      operation: Update
+      apiVersion: v1
+      time: '2021-10-14T12:18:26Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:labels':
+            .: {}
+            'f:k8s-app': {}
+        'f:spec':
+          'f:externalTrafficPolicy': {}
+          'f:ports':
+            .: {}
+            'k:{"port":8000,"protocol":"TCP"}':
+              .: {}
+              'f:port': {}
+              'f:protocol': {}
+          'f:selector': {}
+          'f:sessionAffinity': {}
+    - manager: dashboard
+      operation: Update
+      apiVersion: v1
+      time: '2021-10-25T11:15:25Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:spec':
+          'f:ports':
+            'k:{"port":8000,"protocol":"TCP"}':
+              'f:targetPort': {}
+          'f:selector':
+            'f:k8s-app': {}
+          'f:type': {}
+spec:
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 5000
+      nodePort: 31022
+  selector:
+    k8s-app: wallet-api-test
+  clusterIP: 10.108.113.26
+  clusterIPs:
+    - 10.108.113.26
+  type: NodePort
+  sessionAffinity: None
+  externalTrafficPolicy: Cluster
+status:
+  loadBalancer: {}
