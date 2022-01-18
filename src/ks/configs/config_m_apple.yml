@@ -1,0 +1,47 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: wallet-m-applepass-config-test
+  namespace: default
+  uid: 41de2ca1-8747-4da0-bf50-c68edb7b6a20
+  resourceVersion: '17566623'
+  creationTimestamp: '2021-10-15T09:22:28Z'
+  managedFields:
+    - manager: dashboard
+      operation: Update
+      apiVersion: v1
+      time: '2021-03-18T08:29:47Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:data':
+          .: {}
+          'f:appsettings.json': {}
+data:
+  appsettings.json: |
+    {
+      "Serilog": {
+        "Using": [ "Serilog.Sinks.Console", "Serilog.Sinks.File" ],
+        "MinimumLevel": {
+          "Default": "Information",
+          "Override": {
+            "Microsoft": "Debug",
+            "Microsoft.Hosting.Lifetime": "Information",
+            "System": "Warning"
+          }
+        },
+        "WriteTo": [
+          {
+            "Name": "Console",
+            "Args": {
+              "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] {SourceContext}{NewLine}\t{Message}{NewLine}{Exception}"
+            }
+          }
+        ],
+        "Enrich": [
+          "FromLogContext"
+        ]
+      },
+
+      "AllowedHosts": "*",
+      "DbConnection": "User ID=wallet;Password=TWfBnz9VEcMIsQJ8IOGx;Host=192.168.49.1;Port=5432;Database=walletdb_apass_test_new;Pooling=true;Connection Lifetime=0;",
+    }

@@ -1,0 +1,48 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: wallet-m-googlepay-config-test
+  namespace: default
+  uid: 97b48251-45f9-4a8b-a29e-e29398235cee
+  resourceVersion: '17566638'
+  creationTimestamp: '2021-10-15T09:22:15Z'
+  managedFields:
+    - manager: dashboard
+      operation: Update
+      apiVersion: v1
+      time: '2021-03-18T08:31:30Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:data':
+          .: {}
+          'f:appsettings.json': {}
+data:
+  appsettings.json: |
+    {
+      "Serilog": {
+        "Using": [ "Serilog.Sinks.Console", "Serilog.Sinks.File" ],
+        "MinimumLevel": {
+          "Default": "Information",
+          "Override": {
+            "Microsoft": "Warning",
+            "Microsoft.Hosting.Lifetime": "Information",
+            "System": "Warning"
+          }
+        },
+        "WriteTo": [
+          {
+            "Name": "Console",
+            "Args": {
+              "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] {SourceContext}{NewLine}\t{Message}{NewLine}{Exception}"
+            }
+          }
+        ],
+        "Enrich": [
+          "FromLogContext"
+        ]
+      },
+
+      "AllowedHosts": "*",
+
+      "DbConnection": "User ID=wallet;Password=TWfBnz9VEcMIsQJ8IOGx;Host=192.168.49.1;Port=5432;Database=walletdb_gpay_test_new;Pooling=true;Connection Lifetime=0;",
+    }

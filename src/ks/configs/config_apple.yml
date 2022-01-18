@@ -1,0 +1,78 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: wallet-applepass-config-test
+  namespace: default
+  uid: f4dcb762-d284-4f3d-b913-62f44b4375be
+  resourceVersion: '17570420'
+  creationTimestamp: '2021-10-15T09:06:37Z'
+  managedFields:
+    - manager: dashboard
+      operation: Update
+      apiVersion: v1
+      time: '2021-03-18T08:20:39Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:data':
+          .: {}
+          'f:appsettings.json': {}
+data:
+  appsettings.json: |
+    {
+      "Serilog": {
+            "Using": [ "Serilog.Sinks.Console", "Serilog.Sinks.File" ],
+            "MinimumLevel": {
+              "Default": "Information",
+              "Override": {
+                    "Microsoft": "Warning",
+                    "Microsoft.Hosting.Lifetime": "Information",
+                    "System": "Warning",
+                    "Microsoft.EntityFrameworkCore": "Warning",
+                    "WalletService": "Debug"
+              }
+            },
+            "WriteTo": [
+              {
+                    "Name": "Console",
+                    "Args": {
+                      "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] {SourceContext}{NewLine}\t{Message}{NewLine}{Exception}"
+                    }
+              }
+            ],
+            "Enrich": [
+              "FromLogContext"
+            ]
+      },
+
+      "AllowedHosts": "*",
+
+      "ServiceKey": "apple_pass",
+      "OriginUrl": "https://applepass.wallet.shelter.ru:10000",
+
+      "DbConnection": "User ID=wallet;Password=TWfBnz9VEcMIsQJ8IOGx;Host=192.168.49.1;Port=5432;Database=walletdb_apass_test_new;Pooling=true;Connection Lifetime=0;",
+
+      "WalletCardDataServiceKey": "wallet_api",
+
+      "RabbitMqConfig": {
+            "Connection": {
+                                    "Host": "192.168.49.1",
+                                    "VHost": "wallet-test",
+                                    "User": "appuser",
+                                    "Password": "LeJ7bg43LX3akgrOs9rA"
+            }
+      },
+
+    "ApplePassConfig": {
+    "PassTypeIdentifier": "pass.com.game-keeper.wallet",
+    "TeamIdentifier": "YQ72NZ88UD",
+    "AppleWwdrCertFile": "PrivateData/AppleWWDRCA.cer",
+    "PassTypeIdCertFile": "PrivateData/passGK20211220.p12",
+    "PassTypeIdPassword": "2S,19AZw@OJ\\i}EBe"
+    },
+    "AndroidAsApplePassConfig": {
+    "PassTypeIdentifier": "pass.com.game-keeper.wallet",
+    "PushUrl": "https://walletpasses.appspot.com/api/v1/push",
+    "PushAuthorization": "ff5c7e6778e248ca878f57243d7e6632"
+    }
+
+    }

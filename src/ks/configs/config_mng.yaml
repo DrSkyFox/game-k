@@ -1,0 +1,49 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: wallet-usermanager
+  namespace: default
+  uid: cfedb8e5-0daf-438f-ad15-1748fd7cc04b
+  resourceVersion: '17567551'
+  creationTimestamp: '2021-12-22T11:48:04Z'
+  managedFields:
+    - manager: dashboard
+      operation: Update
+      apiVersion: v1
+      time: '2021-12-22T11:48:04Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:data':
+          .: {}
+          'f:appsettings.json': {}
+data:
+  appsettings.json: |
+    {
+      "Serilog": {
+        "Using": [ "Serilog.Sinks.Console", "Serilog.Sinks.File" ],
+        "MinimumLevel": {
+          "Default": "Information",
+          "Override": {
+            "Microsoft": "Warning",
+            "Microsoft.Hosting.Lifetime": "Information",
+            "System": "Warning"
+          }
+        },
+        "WriteTo": [
+          {
+            "Name": "Console",
+            "Args": {
+              "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] {SourceContext}{NewLine}\t{Message}{NewLine}{Exception}"
+            }
+          }
+        ],
+        "Enrich": [
+          "FromLogContext"
+        ]
+      },
+
+      "AllowedHosts": "*",
+      "UserDbConnection": "User ID=wallet;Password=TWfBnz9VEcMIsQJ8IOGx;Host=192.168.49.1;Port=5432;Database=UserManager;Pooling=true;Connection Lifetime=0;",
+
+
+    }

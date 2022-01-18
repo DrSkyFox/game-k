@@ -1,0 +1,64 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: wallet-googlepay-config-test
+  namespace: default
+  uid: 5966fc27-e444-4953-ba37-738e896b1649
+  resourceVersion: '17566669'
+  creationTimestamp: '2021-10-15T09:14:44Z'
+  managedFields:
+    - manager: dashboard
+      operation: Update
+      apiVersion: v1
+      time: '2021-03-18T08:24:07Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:data':
+          .: {}
+          'f:appsettings.json': {}
+data:
+  appsettings.json: |
+    {
+      "Serilog": {
+        "Using": [ "Serilog.Sinks.Console", "Serilog.Sinks.File" ],
+        "MinimumLevel": {
+          "Default": "Information",
+          "Override": {
+            "Microsoft": "Warning",
+            "Microsoft.Hosting.Lifetime": "Information",
+            "System": "Warning"
+          }
+        },
+        "WriteTo": [
+          {
+            "Name": "Console",
+            "Args": {
+              "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] {SourceContext}{NewLine}\t{Message}{NewLine}{Exception}"
+            }
+          }
+        ],
+        "Enrich": [
+          "FromLogContext"
+        ]
+      },
+
+      "AllowedHosts": "*",
+
+      "RabbitMqConfig": {
+        "Connection": {
+                    "Host": "192.168.49.1",
+                    "VHost": "wallet-test",
+                    "User": "appuser",
+                    "Password": "LeJ7bg43LX3akgrOs9rA"
+        }
+      },
+      "ServiceKey": "google_pay",
+      "WalletCardDataServiceKey": "wallet_api",
+      "OriginUrl": "https://googlepay.wallet.shelter.ru:10000",
+
+      "GooglePayServiceAccountFile": "PrivateData/google_pay_private.json",
+      "GoogleSaveLink": "https://pay.google.com/gp/v/save/{token}",
+
+      "DbConnection": "User ID=wallet;Password=TWfBnz9VEcMIsQJ8IOGx;Host=192.168.49.1;Port=5432;Database=walletdb_gpay_test_new;Pooling=true;Connection Lifetime=0;",
+
+    }

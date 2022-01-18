@@ -1,0 +1,62 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: wallet-m-main-config-test
+  namespace: default
+  uid: f8b5c1ea-3fae-4bec-9571-eb7e484566f7
+  resourceVersion: '17566654'
+  creationTimestamp: '2021-10-15T09:21:37Z'
+  managedFields:
+    - manager: dashboard
+      operation: Update
+      apiVersion: v1
+      time: '2021-03-18T08:27:48Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:data':
+          .: {}
+          'f:appsettings.json': {}
+data:
+  appsettings.json: |
+    {
+      "Serilog": {
+        "Using": [ "Serilog.Sinks.Console", "Serilog.Sinks.File" ],
+        "MinimumLevel": {
+          "Default": "Information",
+          "Override": {
+            "Microsoft": "Warning",
+            "Microsoft.Hosting.Lifetime": "Information",
+            "System": "Warning"
+          }
+        },
+        "WriteTo": [
+          {
+            "Name": "Console",
+            "Args": {
+              "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] {SourceContext}{NewLine}\t{Message}{NewLine}{Exception}"
+            }
+          }
+        ],
+        "Enrich": [
+          "FromLogContext"
+        ]
+      },
+
+      "AllowedHosts": "*",
+
+      "DbConnection": "User ID=wallet;Password=TWfBnz9VEcMIsQJ8IOGx;Host=192.168.49.1;Port=5432;Database=walletdb_api_test_new;Pooling=true;Connection Lifetime=0;",
+      "UserDbConnection": "User ID=wallet;Password=TWfBnz9VEcMIsQJ8IOGx;Host=192.168.49.1;Port=5432;Database=UserManager;Pooling=true;Connection Lifetime=0;",
+      "ExtServices": [
+        {
+          "Key": "GooglePay",
+          "Name": "GooglePay",
+          "ManagementUrl": "https://managegpass.wallet.shelter.ru:10000/Owners/Details/{businessId}"
+        },
+        {
+          "Key": "ApplePass",
+          "Name": "ApplePass",
+          "ManagementUrl": "https://manageapass.wallet.shelter.ru:10000/Owners/Details/{businessId}"
+        }
+      ]
+
+    }
